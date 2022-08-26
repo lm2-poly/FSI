@@ -10,4 +10,4 @@ Plusieurs portions ont été couvertes, et pour chacune d'elle, vous trouverez u
 
 ### Analyse dimensionnelle 
 
-[Masse Ajoutée](https://github.com/lm2-poly/FSI/blob/main/Chapitre-2_Analyse-dimensionnelle/1_Masse_ajoutee/Masse_ajoutee.ipynb)
+[Masse Ajoutée](https://github.com/lm2-poly/FSI/main/Chapitre-2_Analyse-dimensionnelle/1_Masse_ajoutee/Masse_ajoutee.ipynb)
