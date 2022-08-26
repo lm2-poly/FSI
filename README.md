@@ -2,7 +2,7 @@
 
 ## Professeur : Frédérick Gosselin
 
-Vous trouverez ci-joint du contenu complémentaire au cours donné en classe, avec des rappels sur la matière couverte, des détails supplémentaires et des codes vous permettant d'approfondir et d'obtenir les résultats vues en classe. 
+Vous trouverez ci-joint du contenu complémentaire au cours donné en classe, avec des rappels sur la matière couverte, des détails supplémentaires et des codes vous permettant d'approfondir et d'obtenir les résultats vus en classe. Une partie de la documentation est écrite en anglais, et le reste en français. Pour toute question, veuillez vous adresser au professeur.
 
 Plusieurs portions ont été couvertes, et pour chacune d'elle, vous trouverez un Jupyter Notebook, qu'il est possible :
 - De consulter en ligne, en cliquant sur le lien associé ci-dessous ;
