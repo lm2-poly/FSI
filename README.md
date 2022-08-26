@@ -8,7 +8,6 @@ Plusieurs portions ont été couvertes, et pour chacune d'elle, vous trouverez u
 - D'exécuter localement au moyen d'une installation Anaconda et avec les librairies précisées dans le fichier "requirements.txt",
 - Ou en ligne, sans installation nécessaire, en cliquant sur le badge de Binder.
 
-## Analyse dimensionnelle
-### Masse Ajoutée
+### Analyse dimensionnelle 
 
-[a link](https://github.com/lm2-poly/FSI/Chapitre-2_Analyse-dimensionnelle/Masse_ajoutee.ipynb)
+[Masse Ajoutée](https://github.com/lm2-poly/FSI/Chapitre-2_Analyse-dimensionnelle/Masse_ajoutee.ipynb)
