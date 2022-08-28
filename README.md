@@ -6,7 +6,7 @@ Vous trouverez ci-joint du contenu complémentaire au cours donné en classe, av
 
 Plusieurs portions ont été couvertes, et pour chacune d'elle, vous trouverez un Jupyter Notebook, qu'il est possible :
 - De consulter en ligne, en cliquant sur le lien associé ci-dessous ;
-- D'exécuter localement au moyen d'une installation Anaconda et avec les librairies précisées dans le fichier "requirements.txt" ;
+- D'exécuter localement au moyen d'une installation Anaconda et avec les librairies précisées dans le fichier "requirements.txt" (cf. la procédure ci-dessous) ;
 - D'exécuter en ligne, sans installation nécessaire, en cliquant sur 
 
 ### Analyse dimensionnelle 
@@ -28,3 +28,8 @@ Plusieurs portions ont été couvertes, et pour chacune d'elle, vous trouverez u
 [Modes d'un tuyau](https://github.com/lm2-poly/FSI/blob/main/Chapitre-5_Ecoulement-axial/Tuyau/Modes/Modes.ipynb)
 
 [Vitesse critique d'un tuyau](https://github.com/lm2-poly/FSI/blob/main/Chapitre-5_Ecoulement-axial/Tuyau/Vitesse-critique_flottement/Vitesse_critique.ipynb)
+
+### Exécution locale des Jupyter Notebooks
+- Installer Anaconda au moyen du lien suivant : https://www.anaconda.com/products/distribution ;
+- Ouvrir Anaconda Prompt à partir du menu Démarrer ;
+- Se rendre dans le dossier de votre choix avec le chemin vers celui-ci : ''' cd Utilisateurs/Utilisateur/Documents/FSI '''
