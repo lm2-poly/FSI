@@ -13,6 +13,8 @@ Plusieurs portions ont été couvertes, et pour chacune d'elle, vous trouverez u
 
 [Masse ajoutée - Cylindre](https://github.com/lm2-poly/FSI/blob/main/Chapitre-2_Analyse-dimensionnelle/1_Masse_ajoutee/Cylindre/Masse_ajoutee.ipynb)
 
+[Masse ajoutée - Disque et verre](https://github.com/lm2-poly/FSI/blob/main/Chapitre-2_Analyse-dimensionnelle/1_Masse_ajoutee/Disque_Verre/added_mass.ipynb)
+
 [Analyse de stabilité](https://github.com/lm2-poly/FSI/blob/main/Chapitre-2_Analyse-dimensionnelle/2_Analyse_stabilite/Analyse_stabilite.ipynb)
 
 ### Vibrations induites par vortex
