@@ -4,23 +4,23 @@
 
 ```images``` &rarr; Images necessary for ```added_mass.ipynb```
 
-```saving_folder/disc_param_study``` &rarr Folder for the results to be read in ```added_mass.ipynb```
+```saving_folder/disc_param_study``` &rarr; Folder for the results to be read in ```added_mass.ipynb```
 
-```template-apdl-disc``` &rarr Template input ```.mac``` files to launch simulations on Ansys for the discs
+```template-apdl-disc``` &rarr; Template input ```.mac``` files to launch simulations on Ansys for the discs
 
-```template-apdl-glass``` &rarr Template input ```.mac``` files to launch simulations on Ansys for the glass
+```template-apdl-glass``` &rarr; Template input ```.mac``` files to launch simulations on Ansys for the glass
 
-```added_mass.ipynb```` &rarr Jupyter Notebook for the post-treatment of results for the discs and glass to compute their added mass
+```added_mass.ipynb``` &rarr; Jupyter Notebook for the post-treatment of results for the discs and glass to compute their added mass
 
-```analyse_result_ansys``` &rarr Storage and analysis of the results in adapted classes
+```analyse_result_ansys``` &rarr; Storage and analysis of the results in adapted classes
 
-```extract_result_ansys``` &rarr Extraction of the results from a solved Ansys model
+```extract_result_ansys``` &rarr; Extraction of the results from a solved Ansys model
 
-```launch_ansys_simulation``` &rarr Code to launch a parametric simulation from a template input ```.mac``` file
+```launch_ansys_simulation``` &rarr; Code to launch a parametric simulation from a template input ```.mac``` file
 
-```main_disc_analysis``` &rarr Example of a parametric study for the disc
+```main_disc_analysis``` &rarr; Example of a parametric study for the disc
 
-```main_glass_analysis``` &rarr Example of a parametric study for the glass
+```main_glass_analysis``` &rarr; Example of a parametric study for the glass
 
 ## Requirements
 
