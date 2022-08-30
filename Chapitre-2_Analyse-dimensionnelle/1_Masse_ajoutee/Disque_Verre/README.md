@@ -2,7 +2,7 @@
 
 ## Folder structure
 
-```images``` &rarr Images necessary for ```added_mass.ipynb```
+```images``` &rarr; Images necessary for ```added_mass.ipynb```
 
 ```saving_folder/disc_param_study``` &rarr Folder for the results to be read in ```added_mass.ipynb```
 
