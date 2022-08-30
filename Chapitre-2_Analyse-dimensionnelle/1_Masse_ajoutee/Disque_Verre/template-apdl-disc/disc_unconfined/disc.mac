@@ -1,0 +1,182 @@
+Finish
+/CLEAR
+/filname,disque_ressort,1
+
+/PREP7
+etcontrol,set
+
+!!!!!!!!!!!!!!!!!!!!!!!!
+!input variables
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!real constants
+
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!define element types
+!mass type
+
+
+!spring type
+
+
+!solid type
+
+
+!fluid type
+
+
+!fluid infinite type
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!MODELLING spring and mass
+N,1,0,0,0
+n,2,0,spring_length,0 
+
+!MASS
+TYPE,3
+REAL,2
+E,1
+
+!SPRING
+TYPE,4
+REAL,1
+E,1,2
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!define material properties
+
+!solid properties
+
+!fluid properties
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!MODELLING - END
+
+!CLOSE WATER
+CYL4,0,0,inner_radius,0,outer_radius,90
+CYL4,0,0,inner_radius,90,outer_radius,180
+CYL4,0,0,inner_radius,180,outer_radius,270
+CYL4,0,0,inner_radius,270,outer_radius,360
+
+
+!disc frontier
+CYL4,0,0,inner_radius-width_structure,0,inner_radius,90
+CYL4,0,0,inner_radius-width_structure,90,inner_radius,180
+CYL4,0,0,inner_radius-width_structure,180,inner_radius,270
+CYL4,0,0,inner_radius-width_structure,270,inner_radius,360
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!
+!to ensure proper meshing between diferent bodies
+APTN,ALL
+NUMMRG,ALL,,,,LOW
+NUMCMP,ALL
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!MESH 
+
+
+! activate cylindrical csys with z axis of rotation
+CSYS,1 
+
+!CLOSE WATER
+TYPE,1
+MAT,1
+REAL,3
+MSHAPE,0,2D 
+MSHKEY,1,
+KEYOPT,1,2,0
+
+LSEL,S,LOC,X,inner_radius
+LSEL,A,LOC,X,outer_radius
+LESIZE,ALL,,,angular_division
+
+LSEL,S,LOC,X,inner_radius+tol, outer_radius-tol
+LESIZE,ALL,,,acoustic_radial_division
+asel,s,area,,1
+asel,a,area,,2
+asel,a,area,,4
+asel,a,area,,5
+AMESH,all
+
+
+!FAR WATER
+TYPE,5
+MAT,1
+REAL,4
+
+NSEL,S,LOC,X,outer_radius
+ESURF
+allsel,all
+
+
+!DISC FRONTIER
+TYPE,2
+MAT,2
+MSHAPE,0,2D
+MSHKEY,1
+
+LSEL,S,LOC,X,inner_radius-width_structure
+LESIZE,ALL,,,angular_division
+LSEL,S,LOC,X,inner_radius-width_structure+tol, inner_radius-tol
+LESIZE,ALL,,,structural_radial_division
+
+asel,s,area,,3
+asel,a,area,,6
+asel,a,area,,7
+asel,a,area,,8
+AMESH,all
+
+
+!DEFINE RIGID DISC ELEMENTS WITH CERIG
+nsel,s,loc,x,inner_radius-width_structure,inner_radius
+NSEL,a, , ,1
+cerig,1,all,ux
+cerig,1,all,uy
+
+
+
+CSYS,0
+nsel,s,,,2
+D,all,ux,0
+D,all,uy,0
+allsel,all
+D,ALL,UZ,0
+nsel,s,,,1
+D,all,UX,0
+
+
+
+ALLSEL,all
+nsel,all ! reselect all nodes
+ddele,all,pres ! release the pressure dof for acoustics analysis
+nsel,all ! reselect all nodes
+ecpchg !automatically convert uncoupled/coupled acoustic element for acoustic ana
+
+
+allsel,all
+!Solution
+/SOLU
+antype,2 ! modal analysis
+modopt,damp,12,1.,1200.,AUTO !unsymetric solver, freq range 1Hz to 1200Hz
+outres,erase
+outres,all,none
+outres,nsol,all
+mxpand,,,,yes,,no ! expand requested element results, but not write them to file.mode
+dmpopt,esav,no
+!emat est la matrice
+dmpopt,emat,yes
+dmpopt,full,yes
+cdwrite,db,db_name,dat,,,,,BLOCKED !write database for the whole model (elements, nodes, etc.)
+solve
+FINISH
+
+
+/post1
+set,list

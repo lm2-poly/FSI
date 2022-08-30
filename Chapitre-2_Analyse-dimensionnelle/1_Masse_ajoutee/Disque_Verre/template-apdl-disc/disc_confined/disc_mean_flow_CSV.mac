@@ -1,0 +1,249 @@
+Finish
+/CLEAR
+/filname,disque_ressort,1
+
+/PREP7
+etcontrol,set
+
+!!!!!!!!!!!!!!!!!!!!!!!!
+!input variables
+
+!file_path
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!U_theta_mean = 15
+!real constants
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!ELEMENT TYPES
+
+!fluid type
+
+
+!solid type
+
+
+!mass type
+
+
+!spring type
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!MODELLING spring and mass
+N,1,0,0,0
+n,2,0,spring_length,0 
+
+!MASS
+TYPE,3
+REAL,2
+E,1
+
+!SPRING
+TYPE,4
+REAL,1
+E,1,2
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!MATERIAL PROPERTIES
+
+!fluid properties
+
+
+!solid properties
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!MODELLING - WATER AND DISC FRONTIER
+
+!WATER
+CYLIND,inner_radius,outer_radius,0,disc_width,0,90
+CYLIND,inner_radius,outer_radius,0,disc_width,90,180
+CYLIND,inner_radius,outer_radius,0,disc_width,180,270
+CYLIND,inner_radius,outer_radius,0,disc_width,270,360
+
+
+!DISC FRONTIER
+CYLIND,inner_radius-width_structure,inner_radius,0,disc_width,0,90
+CYLIND,inner_radius-width_structure,inner_radius,0,disc_width,90,180
+CYLIND,inner_radius-width_structure,inner_radius,0,disc_width,180,270
+CYLIND,inner_radius-width_structure,inner_radius,0,disc_width,270,360
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!
+!to ensure proper meshing between diferent bodies
+VPTN,ALL
+NUMMRG,ALL,,,,LOW !merge all volumes (merge common points between coincident volumes)
+NUMCMP,ALL  !renumber volumes from 1 to x
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!MESHING CONTROLS
+CSYS,1 ! activate cylindrical csys with z axis of rotation
+
+!axial gap divisions
+LSEL,S,LOC,Z,0+0.005,disc_width-0.005
+LESIZE,ALL,,,1
+
+
+!radial divisions
+LSEL,S,LOC,X,inner_radius+tol, outer_radius-tol
+LESIZE,ALL,,,acoustic_radial_division
+LSEL,S,LOC,X,inner_radius-width_structure+tol, inner_radius-tol
+LESIZE,ALL,,,structural_radial_division
+
+!angular divisions
+LSEL,S,LOC,X,inner_radius
+LSEL,A,LOC,X,outer_radius
+LSEL,A,LOC,X,inner_radius-width_structure
+LESIZE,ALL,,,angular_division
+
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!MESHING
+!WATER
+TYPE,1
+MAT,1
+REAL,3
+!MSHAPE,0,3D 
+!MSHKEY,1,
+!KEYOPT,1,2,0
+
+
+vsel,s,volu,,1
+vsel,a,volu,,5
+vsel,a,volu,,3
+vsel,a,volu,,4
+VMESH,all
+
+
+!DISC FRONTIER
+TYPE,2
+MAT,2
+!MSHAPE,0,3D
+!MSHKEY,1
+
+
+vsel,s,volu,,2
+vsel,a,volu,,6
+vsel,a,volu,,7
+vsel,a,volu,,8
+VMESH,all
+
+
+
+
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+ALLSEL,all,all
+nsel,all ! reselect all nodes
+ddele,all,pres ! release the pressure dof for acoustics analysis
+nsel,all ! reselect all nodes
+ecpchg !automatically convert uncoupled/coupled acoustic element for acoustic ana
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+!csys,1
+!nsel,s,,,27
+!F,ALL,FY,100
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!MEAN FLOW EFFECT
+! CSYS,12 ! activate cylindrical coordinate system
+! ! interpolation of mean velocity (here arbitrary velocity)
+
+
+
+! to_skip=1 ! enter number of lines to skip–1 in this example
+! /INQUIRE,numlines,LINES,file_name,csv
+! to_read=numlines-to_skip
+
+! *DEL,u_thetas_table,,NOPR
+! *DIM,u_thetas_table,TABLE,to_read,,,X,,,12 ! table array to hold data
+! *TREAD,u_thetas_table,file_name,csv,folder_name,to_skip
+! csys,1
+
+!BF,fluid_nodes,VMEN,0.0,U_theta_mean,0.0
+!apply_mean_flow
+
+
+!
+! Show the result to the user
+!/title,Data read into the Table Array 'u_thetas_table'
+!*VPLOT,u_thetas_table(1,0),u_thetas_table(1,1)
+!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! create named components
+ESEL,S,MAT,,1 ! select fluid elements (type 1 for fluid as defined above, type 2 for solid)
+ESEL,U,,,1
+ESEL,U,,,2
+CM,fluid,elem ! create a component with all fluid elements
+NSLE,S
+CM,fluid_nodes,NODE ! create new component with all fluid nodes
+
+ESEL,S,MAT,,2 ! select solid elements
+CM,solid,elem ! create a component with all solid elements
+ALLSEL,all,all
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! Create cylindrical coord system and assign it to all fluid elements
+CSYS,0 ! activate global cartesian coord sys
+local,12,1,0.,0.,0.,0.,0.,0. ! create cylindrical coord sys
+CSYS,12 ! activate newly created csys
+EMODIF,fluid,ESYS,12, ! modify fluid elements csys to the cylindrical one
+
+ESEL,all ! reselect all elements (fluid and structural)
+NSEL,all ! select all nodes from the selected elements
+CSYS,0 ! select global cartesian coordinate system
+
+
+!DEFINE RIGID DISC ELEMENTS WITH CERIG
+ESEL,S,MAT,,2
+nsle,s
+NSEL,a, , ,1
+cerig,1,all,uy
+cerig,1,all,ux
+
+
+allsel,all,all
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!DISPLACEMENT CONSTRAINTS
+
+CSYS,0
+nsel,s,,,2
+D,all,ux,0
+D,all,uy,0
+
+
+allsel,all,all
+D,ALL,UZ,0
+
+
+!ESEL,all
+!NSEL,all
+FINISH
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! Solution
+/solu
+antype,2 ! modal analysis
+modopt,UNSYM,1,1.0,1200.0,ON,ON !unsymetric solver
+outres,erase
+outres,all,none
+outres,nsol,all
+mxpand,,,,yes,,no ! expand requested element results, but not write them to file.mode
+dmpopt,esav,no
+dmpopt,emat,no
+dmpopt,full,no
+cdwrite,db,db_name,dat,,,,,BLOCKED !write database for the whole model (elements, nodes, etc.)
+solve
+FINISH
+
+
+/eof
+FINISH

@@ -1,0 +1,209 @@
+Finish
+/CLEAR
+/filname,disc_mean_flow,1
+
+/PREP7
+etcontrol,set
+
+!!!!!!!!!!!!!!!!!!!!!!!!
+!input variables
+
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!U_theta_mean = 15
+!real constants
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!ELEMENT TYPES
+
+!fluid type
+
+
+
+!solid type
+
+
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!MATERIAL PROPERTIES
+
+!fluid properties
+
+
+
+!solid properties
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!MODELLING - WATER AND DISC FRONTIER
+
+!WATER
+CYLIND,inner_radius,outer_radius,0,0.05,0,90
+CYLIND,inner_radius,outer_radius,0,0.05,90,180
+CYLIND,inner_radius,outer_radius,0,0.05,180,270
+CYLIND,inner_radius,outer_radius,0,0.05,270,360
+
+
+!DISC FRONTIER
+CYLIND,0.0,inner_radius,0,0.05,0,90
+CYLIND,0.0,inner_radius,0,0.05,90,180
+CYLIND,0.0,inner_radius,0,0.05,180,270
+CYLIND,0.0,inner_radius,0,0.05,270,360
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!
+!to ensure proper meshing between diferent bodies
+VPTN,ALL
+NUMMRG,ALL,,,,LOW !merge all volumes (merge common points between coincident volumes)
+NUMCMP,ALL  !renumber volumes from 1 to x
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!MESHING CONTROLS
+CSYS,1 ! activate cylindrical csys with z axis of rotation
+
+!axial gap divisions
+LSEL,S,LOC,Z,0+0.005,0.05-0.005
+LESIZE,ALL,,,1
+
+!angular divisions
+LSEL,S,LOC,X,inner_radius
+LSEL,A,LOC,X,outer_radius
+LSEL,A,LOC,X,inner_radius-width_structure
+LESIZE,ALL,,,angular_division
+
+
+!radial divisions
+LSEL,S,LOC,X,inner_radius+tol, outer_radius-tol
+LSEL,A,LOC,X,inner_radius-width_structure+tol, inner_radius+tol
+LESIZE,ALL,,,radial_division
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!MESHING
+!WATER
+TYPE,1
+MAT,1
+REAL,3
+!MSHAPE,0,3D 
+!MSHKEY,1,
+!KEYOPT,1,2,0
+
+
+vsel,s,volu,,1
+vsel,a,volu,,6
+vsel,a,volu,,7
+vsel,a,volu,,8
+VMESH,all
+
+
+!DISC FRONTIER
+TYPE,2
+MAT,2
+!MSHAPE,0,3D
+!MSHKEY,1
+
+
+vsel,s,volu,,2
+vsel,a,volu,,3
+vsel,a,volu,,4
+vsel,a,volu,,5
+VMESH,all
+
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+ALLSEL,all,all
+nsel,all ! reselect all nodes
+ddele,all,pres ! release the pressure dof for acoustics analysis
+nsel,all ! reselect all nodes
+ecpchg !automatically convert uncoupled/coupled acoustic element for acoustic ana
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+!csys,1
+!nsel,s,,,27
+!F,ALL,FY,100
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!MEAN FLOW EFFECT
+! CSYS,12 ! activate cylindrical coordinate system
+! ! interpolation of mean velocity (here arbitrary velocity)
+! !file_path
+
+
+! to_skip=1 ! enter number of lines to skip–1 in this example
+! /INQUIRE,numlines,LINES,file_name,csv
+! to_read=numlines-to_skip
+! !
+! *DEL,u_thetas_table,,NOPR
+! *DIM,u_thetas_table,TABLE,to_read,,,X,,,12 ! table array to hold data
+! *TREAD,u_thetas_table,file_name,csv,folder_name,to_skip
+! csys,1
+
+!BF,fluid_nodes,VMEN,0.0,U_theta_mean,0.0
+!apply_mean_flow
+
+
+!
+! Show the result to the user
+!/title,Data read into the Table Array 'u_thetas_table'
+!*VPLOT,u_thetas_table(1,0),u_thetas_table(1,1)
+!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! create named components
+ESEL,S,MAT,,1 ! select fluid elements (type 1 for fluid as defined above, type 2 for solid)
+!ESEL,U,,,1
+!ESEL,U,,,2
+CM,fluid,elem ! create a component with all fluid elements
+NSLE,S
+CM,fluid_nodes,NODE ! create new component with all fluid nodes
+
+ESEL,S,MAT,,2 ! select solid elements
+CM,solid,elem ! create a component with all solid elements
+ALLSEL,all,all
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! Create cylindrical coord system and assign it to all fluid elements
+CSYS,0 ! activate global cartesian coord sys
+local,12,1,0.,0.,0.,0.,0.,0. ! create cylindrical coord sys
+CSYS,12 ! activate newly created csys
+EMODIF,fluid,ESYS,12, ! modify fluid elements csys to the cylindrical one
+!NMODIF,fluid_nodes,ESYS,12
+
+ESEL,all ! reselect all elements (fluid and structural)
+NSEL,all ! select all nodes from the selected elements
+CSYS,0 ! select global cartesian coordinate system
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!DISPLACEMENT CONSTRAINTS
+
+allsel,all,all
+D,ALL,UZ,0
+
+
+!ESEL,all
+!NSEL,all
+FINISH
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! Solution
+/solu
+antype,2 ! modal analysis
+modopt,unsym,1,1.0,1200.0,ON,ON
+outres,erase
+outres,all,none
+outres,nsol,all
+mxpand,,,,yes,,no ! expand requested element results, but not write them to file.mode
+dmpopt,esav,no
+dmpopt,emat,no
+dmpopt,full,no
+cdwrite,db,db_name,dat,,,,,BLOCKED !write database for the whole model (elements, nodes, etc.)
+solve
+FINISH
+
+/eof 
+finish
