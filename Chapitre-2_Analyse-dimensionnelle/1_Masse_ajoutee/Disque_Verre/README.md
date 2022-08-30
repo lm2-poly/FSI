@@ -10,7 +10,7 @@
 
 ```template-apdl-glass``` &rarr; Template input ```.mac``` files to launch simulations on Ansys for the glass
 
-```added_mass.ipynb``` &rarr; Jupyter Notebook for the post-treatment of results for the discs and glass to compute their added mass
+```added_mass.ipynb``` &rarr; Jupyter Notebook for the post-treatment of results for the discs and glass to compute their added mass (it can only be consulted, as it is missing the results files to be executed, which are too heavy to be stored on Github)
 
 ```analyse_result_ansys``` &rarr; Storage and analysis of the results in adapted classes
 
