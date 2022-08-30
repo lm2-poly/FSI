@@ -11,7 +11,7 @@ Plusieurs portions ont été couvertes, et pour chacune d'elle, vous trouverez u
 
 ### Analyse dimensionnelle 
 
-[Masse ajoutée](https://github.com/lm2-poly/FSI/blob/main/Chapitre-2_Analyse-dimensionnelle/1_Masse_ajoutee/Masse_ajoutee.ipynb)
+[Masse ajoutée - Cylindre](https://github.com/lm2-poly/FSI/blob/main/Chapitre-2_Analyse-dimensionnelle/1_Masse_ajoutee/Cylindre/Masse_ajoutee.ipynb)
 
 [Analyse de stabilité](https://github.com/lm2-poly/FSI/blob/main/Chapitre-2_Analyse-dimensionnelle/2_Analyse_stabilite/Analyse_stabilite.ipynb)
 
