@@ -7,7 +7,7 @@ Vous trouverez ci-joint du contenu complémentaire au cours donné en classe, av
 Plusieurs portions ont été couvertes, et pour chacune d'elle, vous trouverez un Jupyter Notebook, qu'il est possible :
 - De consulter en ligne, en cliquant sur le lien associé ci-dessous (quelques bogues d'affichage des équations sont présents, pour une meilleure lisibilité, se réferer aux options suivantes) ;
 - D'exécuter localement au moyen d'une installation Anaconda et avec les librairies précisées dans le fichier ``` requirements_python3-10-4.txt ``` (cf. la procédure ci-dessous) ;
-- D'exécuter en ligne, sans installation nécessaire, en cliquant sur 
+- D'exécuter en ligne, sans installation nécessaire, en cliquant sur [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/lm2-poly/FSI/HEAD)
 
 ### Analyse dimensionnelle 
 
