@@ -2,7 +2,7 @@
 
 ## Professeur : Frédérick Gosselin
 
-Vous trouverez ci-joint du contenu complémentaire au cours donné en classe, avec des rappels sur la matière couverte, des détails supplémentaires et des codes vous permettant d'approfondir et d'obtenir les résultats vus en classe. Une partie de la documentation est écrite en anglais, et le reste en français. Pour toute question, veuillez vous adresser au professeur.
+Vous trouverez ci-joint du contenu complémentaire au cours donné en classe, avec des rappels sur la matière couverte, des détails supplémentaires et des codes vous permettant d'approfondir et d'obtenir les résultats vus en classe. Une partie de la documentation est écrite en anglais, et le reste en français.
 
 Plusieurs portions ont été couvertes, et pour chacune d'elle, vous trouverez un Jupyter Notebook, qu'il est possible :
 - De consulter en ligne, en cliquant sur le lien associé ci-dessous ;
@@ -11,13 +11,15 @@ Plusieurs portions ont été couvertes, et pour chacune d'elle, vous trouverez u
 
 ### Analyse dimensionnelle 
 
-[Masse ajoutée](https://github.com/lm2-poly/FSI/blob/main/Chapitre-2_Analyse-dimensionnelle/1_Masse_ajoutee/Masse_ajoutee.ipynb)
+[Masse ajoutée - Cylindre](https://github.com/lm2-poly/FSI/blob/main/Chapitre-2_Analyse-dimensionnelle/1_Masse_ajoutee/Cylindre/Masse_ajoutee.ipynb)
 
-[Analyse de stabilité](https://github.com/lm2-poly/FSI/blob/main/Chapitre-2_Analyse-dimensionnelle/2_Analyse_stabilite/Analyse_stabilite.ipynb)
+[Masse ajoutée - Disque et verre](https://github.com/lm2-poly/FSI/blob/main/Chapitre-2_Analyse-dimensionnelle/1_Masse_ajoutee/Disque_Verre/added_mass.ipynb)
+
+[Analyse de stabilité - Système masse-ressort](https://github.com/lm2-poly/FSI/blob/main/Chapitre-2_Analyse-dimensionnelle/2_Analyse_stabilite/Analyse_stabilite.ipynb)
 
 ### Vibrations induites par vortex
 
-[VIV](https://github.com/lm2-poly/FSI/blob/main/Chapitre-3_Vibrations-induites-par-vortex-(VIV)/VIV.ipynb)
+[VIV - Cylindre](https://github.com/lm2-poly/FSI/blob/main/Chapitre-3_Vibrations-induites-par-vortex-(VIV)/VIV.ipynb)
 
 ### Ecoulements transverses sur structures élancées
 
