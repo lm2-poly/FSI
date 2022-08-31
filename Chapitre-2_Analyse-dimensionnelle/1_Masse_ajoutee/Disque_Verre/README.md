@@ -24,7 +24,7 @@
 
 ## Requirements
 
-To execute the code, it is needed to have Ansys APDL installed locally. The necessary libraries pyAnsys to communicate between Ansys and Python are given in ```requirements.txt``` in the home page, and the procedure to install them is available at the end of ```readme.md```.
+To execute the code, it is needed to have Ansys APDL installed locally. The necessary libraries pyAnsys to communicate between Ansys and Python are given in ```requirements_withpyAnsys_python3-10-4.txt``` in the home page, and the procedure to install them is available at the end of ```readme.md```.
 
 ## Objectives
 
